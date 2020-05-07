@@ -5,7 +5,7 @@ import time
 
 desired_caps = {
   'platformName': 'Android', # 被测手机是安卓
-  'platformVersion': '8', # 手机安卓版本
+  'platformVersion': '6', # 手机安卓版本
   'deviceName': 'xxx', # 设备名，安卓手机可以随意填写
   'appPackage': 'com.woyue.batchat', # 启动APP Package名称
   'appActivity': '.act.SplashActivity', # 启动Activity名称
@@ -48,7 +48,7 @@ driver.find_element_by_id("tvSearch").click()
 sbox = driver.find_element_by_id("inputView")
 
 # 读取excel
-book = load_workbook(r'C:\\Users\\13771\\Desktop\\jhy.xlsx')
+book = load_workbook(rf"C:\\Users\\Administrator\\Desktop\\jhy.xlsm")
 sheet = book.active
 
 vals = []
@@ -56,10 +56,13 @@ for cell in sheet['A']:
     vals.append(cell.value)
 
 # 循环读取列表昵称
-for val in vals[1:3]:
+for val in vals[1:1001]:
+  print(val)
   sbox.send_keys(val)
+  time.sleep(1)
   # 点击找人
   driver.find_element_by_id("tvUserHint").click()
+
   # 点击搜索结果联系人
   driver.find_element_by_id("tvNickName").click()
   # 点击加好友
@@ -67,23 +70,18 @@ for val in vals[1:3]:
   # 点击发送
   driver.find_element_by_id("btnSend").click()
   # 点击×号
-  driver.find_element_by_id("btnClean").click()
+  # driver.find_element_by_id("btnClean").click()
+  time.sleep(1)
+  driver.keyevent(4)
+  time.sleep(.5)
+  driver.keyevent(4)
+  time.sleep(2)
+  # 点击输入框
+  w = driver.find_element_by_id("tvSearch")
+  w.click()
+  time.sleep(1)
 
-# 接受好友请求
-# 返回首页
-driver.keyevent(4)
-driver.keyevent(4)
-driver.keyevent(4)
-# 点击我的
-wd = driver.find_element_by_android_uiautomator(
-  'new UiSelector().text("我的")'
-)
-wd.click()
-# 点击个人设置
-driver.find_element_by_id("tvBatId").click()
-# 点击退出登录
-driver.find_element_by_id("btnExit").click()
-# 点击确定
-driver.find_element_by_id("confirm").click()
+  # 跳转页面再点击输入框
+  sbox = driver.find_element_by_id("inputView")
+pass
 
-#逐个登录
