@@ -64,14 +64,10 @@ for val in vals[5:1001]:
     sr.click()
     # 跳转页面再点击输入框
     sr = driver.find_element_by_id("inputView")
-    sr.send_keys('')
-    # 点新朋友
-    xpy = driver.find_element_by_android_uiautomator(
-        'new UiSelector().text("新朋友")'
-    )
-    xpy.click()
-    # 点接受
-    driver.find_element_by_id("tvAccept").click()
+    sr.send_keys('395360')
+    # 点击找群
+    driver.find_element_by_id("tvUserHint").click()
+
 
     # 返回首页
     driver.keyevent(4)
